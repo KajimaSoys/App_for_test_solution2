@@ -78,9 +78,9 @@
             // TestName
             // 
             this.TestName.Font = new System.Drawing.Font("Calibri", 24F);
-            this.TestName.Location = new System.Drawing.Point(128, 43);
+            this.TestName.Location = new System.Drawing.Point(40, 34);
             this.TestName.Name = "TestName";
-            this.TestName.Size = new System.Drawing.Size(568, 81);
+            this.TestName.Size = new System.Drawing.Size(729, 94);
             this.TestName.TabIndex = 1;
             this.TestName.Text = "Тест по инструментальным средствам информационных систем";
             this.TestName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -191,7 +191,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Тест по технологиям программирования";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
