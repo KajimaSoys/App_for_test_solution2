@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TestName = new System.Windows.Forms.Label();
             this.beginButton = new System.Windows.Forms.Button();
             this.TestOptions = new System.Windows.Forms.Label();
@@ -42,44 +38,14 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.endButton = new System.Windows.Forms.Button();
-            this.menuStrip1.SuspendLayout();
+            this.closeButton = new System.Windows.Forms.Button();
+            this.repeatButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.файлToolStripMenuItem,
-            this.справкаToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // файлToolStripMenuItem
-            // 
-            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.выходToolStripMenuItem});
-            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.файлToolStripMenuItem.Text = "Файл";
-            // 
-            // выходToolStripMenuItem
-            // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
-            // 
-            // справкаToolStripMenuItem
-            // 
-            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.справкаToolStripMenuItem.Text = "Справка";
             // 
             // TestName
             // 
             this.TestName.Font = new System.Drawing.Font("Calibri", 24F);
-            this.TestName.Location = new System.Drawing.Point(40, 34);
+            this.TestName.Location = new System.Drawing.Point(40, 21);
             this.TestName.Name = "TestName";
             this.TestName.Size = new System.Drawing.Size(729, 94);
             this.TestName.TabIndex = 1;
@@ -102,7 +68,7 @@
             // TestOptions
             // 
             this.TestOptions.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TestOptions.Location = new System.Drawing.Point(58, 140);
+            this.TestOptions.Location = new System.Drawing.Point(58, 116);
             this.TestOptions.Name = "TestOptions";
             this.TestOptions.Size = new System.Drawing.Size(693, 89);
             this.TestOptions.TabIndex = 3;
@@ -187,11 +153,39 @@
             this.endButton.Visible = false;
             this.endButton.Click += new System.EventHandler(this.endButton_Click);
             // 
+            // closeButton
+            // 
+            this.closeButton.BackColor = System.Drawing.SystemColors.Control;
+            this.closeButton.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.closeButton.Location = new System.Drawing.Point(406, 271);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(226, 44);
+            this.closeButton.TabIndex = 10;
+            this.closeButton.Text = "Выход из теста";
+            this.closeButton.UseVisualStyleBackColor = false;
+            this.closeButton.Visible = false;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // repeatButton
+            // 
+            this.repeatButton.BackColor = System.Drawing.SystemColors.Control;
+            this.repeatButton.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.repeatButton.Location = new System.Drawing.Point(166, 271);
+            this.repeatButton.Name = "repeatButton";
+            this.repeatButton.Size = new System.Drawing.Size(226, 44);
+            this.repeatButton.TabIndex = 11;
+            this.repeatButton.Text = "Повторить попытку";
+            this.repeatButton.UseVisualStyleBackColor = false;
+            this.repeatButton.Visible = false;
+            this.repeatButton.Click += new System.EventHandler(this.repeatButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.repeatButton);
+            this.Controls.Add(this.closeButton);
             this.Controls.Add(this.endButton);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -200,25 +194,15 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.beginButton);
             this.Controls.Add(this.TestName);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.TestOptions);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.Label TestName;
         private System.Windows.Forms.Button beginButton;
         private System.Windows.Forms.Label TestOptions;
@@ -228,6 +212,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button endButton;
+        private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Button repeatButton;
     }
 }
 
