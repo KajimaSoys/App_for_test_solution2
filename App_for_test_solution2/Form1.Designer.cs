@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.TestName = new System.Windows.Forms.Label();
             this.beginButton = new System.Windows.Forms.Button();
@@ -40,6 +41,10 @@
             this.endButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.repeatButton = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Time = new System.Windows.Forms.Label();
+            this.TimeMin = new System.Windows.Forms.Label();
+            this.TimeSec = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TestName
@@ -179,11 +184,52 @@
             this.repeatButton.Visible = false;
             this.repeatButton.Click += new System.EventHandler(this.repeatButton_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // Time
+            // 
+            this.Time.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Time.Location = new System.Drawing.Point(582, 377);
+            this.Time.Name = "Time";
+            this.Time.Size = new System.Drawing.Size(66, 22);
+            this.Time.TabIndex = 12;
+            this.Time.Text = "Время:";
+            this.Time.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Time.Visible = false;
+            // 
+            // TimeMin
+            // 
+            this.TimeMin.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TimeMin.Location = new System.Drawing.Point(644, 377);
+            this.TimeMin.Name = "TimeMin";
+            this.TimeMin.Size = new System.Drawing.Size(37, 23);
+            this.TimeMin.TabIndex = 13;
+            this.TimeMin.Text = "30:";
+            this.TimeMin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TimeMin.Visible = false;
+            // 
+            // TimeSec
+            // 
+            this.TimeSec.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TimeSec.Location = new System.Drawing.Point(673, 377);
+            this.TimeSec.Name = "TimeSec";
+            this.TimeSec.Size = new System.Drawing.Size(32, 23);
+            this.TimeSec.TabIndex = 14;
+            this.TimeSec.Text = "00";
+            this.TimeSec.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TimeSec.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TimeSec);
+            this.Controls.Add(this.Time);
+            this.Controls.Add(this.TestName);
             this.Controls.Add(this.repeatButton);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.endButton);
@@ -193,8 +239,8 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.beginButton);
-            this.Controls.Add(this.TestName);
             this.Controls.Add(this.TestOptions);
+            this.Controls.Add(this.TimeMin);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -214,6 +260,10 @@
         private System.Windows.Forms.Button endButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button repeatButton;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label Time;
+        private System.Windows.Forms.Label TimeMin;
+        private System.Windows.Forms.Label TimeSec;
     }
 }
 

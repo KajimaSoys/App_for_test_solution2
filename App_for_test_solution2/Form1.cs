@@ -29,6 +29,10 @@ namespace App_for_test_solution2
         int right_answer = 0;
         int count_of_right_answer = 0;
         double res;
+        //Переменные для подсчета минут и секунд
+        int min = 30;
+        int sec = 0;
+
 
         public Form1()
         {
@@ -50,12 +54,19 @@ namespace App_for_test_solution2
             //Метод заполняющий массив вопросами (storage.cs)
             Array();
 
+            SetButtonDefaultColor();
+
             //Вызываем данные из массива элементов, которые получили от базы данных (storage.cs)
             DataRequest();
 
             active_question++;
 
-            //Задаем видимость для элементов формы после нажатия кнопки Начать тест
+            StartTest();
+        }
+
+        //Задаем видимость для элементов формы после нажатия кнопки Начать тест
+        void StartTest()
+        {
             beginButton.Visible = false;
             TestOptions.Visible = false;
             TestName.Font = new Font("Calibri", 18F);
@@ -65,8 +76,29 @@ namespace App_for_test_solution2
             button3.Visible = true;
             button4.Visible = true;
             button5.Visible = true;
-        }     
-        
+            timer1.Enabled = true;
+            Time.Visible = true;
+            TimeMin.Visible = true;
+            TimeSec.Visible = true;
+        }
+
+        void EndTest()
+        {
+            button1.Visible = false;
+            button2.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
+            TestOptions.Visible = true;
+            closeButton.Visible = true;
+            repeatButton.Visible = true;
+            TestName.Text = "Тест окончен!!!";
+            TestName.Font = new Font("Calibri", 26F);
+
+            res = (double)count_of_right_answer / 15 * 100;
+
+            TestOptions.Text = "Количество правильных ответов: " + count_of_right_answer + " / 15 \nПроцент верных ответов: " + Math.Round(res, 0) + "%";
+        }
+
         //Окрашиваем кнопки в стандартный цвет
         void SetButtonDefaultColor()
         {
@@ -146,6 +178,7 @@ namespace App_for_test_solution2
             }
         }
 
+        //Реализация нажатия кнопки "Завершить тест"
         private void endButton_Click(object sender, EventArgs e)
         {
             if (active_answer != 0)
@@ -154,19 +187,7 @@ namespace App_for_test_solution2
                 {
                     count_of_right_answer++;
                 }
-                button1.Visible = false;
-                button2.Visible = false;
-                button3.Visible = false;
-                button4.Visible = false;
-                TestOptions.Visible = true;
-                closeButton.Visible = true;
-                repeatButton.Visible = true;
-                TestName.Text = "Тест окончен!!!";
-                TestName.Font = new Font("Calibri", 26F);
-
-                res = (double)count_of_right_answer / 15 * 100;
-
-                TestOptions.Text = "Количество правильных ответов: " + count_of_right_answer + " / 15 \nПроцент верных ответов: " + Math.Round(res, 0) + "%";
+                EndTest();
                 endButton.Visible = false;
             }
             else
@@ -181,33 +202,58 @@ namespace App_for_test_solution2
             myConnection.Close();
         }
 
+        //Реализация повторного прохождения теста
         private void repeatButton_Click(object sender, EventArgs e)
         {
+            //Обновление всех переменных на изначальные
             active_question = 0;
             active_answer = 0;
             right_answer = 0;
             count_of_right_answer = 0;
 
-            SetButtonDefaultColor();
-            button1.Visible = true;
-            button2.Visible = true;
-            button3.Visible = true;
-            button4.Visible = true;
-            button5.Visible = true;
-            TestOptions.Visible = false;
+            min = 30;
+            sec = 0;
+            TimeMin.Text = "30:";
+            TimeSec.Text = "00";
+
+            beginButton.Visible = true;
+            TestName.Text = "Тест по инструментальным средствам информационных систем";
+
+            TestOptions.Text = "15 вопросов; 30 минут";
             closeButton.Visible = false;
             repeatButton.Visible = false;
-            TestName.Font = new Font("Calibri", 18F);
-
-            Array();
-            DataRequest();
-
-            active_question++;
+            TestName.Font = new Font("Calibri", 24F);
         }
 
         private void closeButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        //Реализация таймера
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //Тик равен одной секунде, каждую тик значение секунды уменьшается
+            sec--;
+            if (sec == -1)
+            {
+                min--;
+                sec = 59;
+            }
+            //Если счетчик дойдет до 0, то откроется форма, что время истекло
+            if (min == 0 && sec == 0)
+            {
+                EndTest();
+                TestName.Text = "Время вышло. Тест окончен!!!";
+                button5.Visible = false;
+                timer1.Enabled = false;
+                Time.Visible = false;
+                TimeMin.Visible = false;
+                TimeSec.Visible = false;
+            }
+            //Вывод времени в форму
+            TimeMin.Text = Convert.ToString(min) + ":";
+            TimeSec.Text = Convert.ToString(sec);
         }
     }
 }
