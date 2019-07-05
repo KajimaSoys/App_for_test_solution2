@@ -64,60 +64,6 @@ namespace App_for_test_solution2
             StartTest();
         }
 
-        //Задаем видимость для элементов формы после нажатия кнопки Начать тест
-        void StartTest()
-        {
-            beginButton.Visible = false;
-            TestOptions.Visible = false;
-            TestName.Font = new Font("Calibri", 18F);
-            button5.Text = "Следующий вопрос";
-            button1.Visible = true;
-            button2.Visible = true;
-            button3.Visible = true;
-            button4.Visible = true;
-            button5.Visible = true;
-            timer1.Enabled = true;
-            Time.Visible = true;
-            TimeMin.Visible = true;
-            TimeSec.Visible = true;
-        }
-
-        void EndTest()
-        {
-            button1.Visible = false;
-            button2.Visible = false;
-            button3.Visible = false;
-            button4.Visible = false;
-            TestOptions.Visible = true;
-            closeButton.Visible = true;
-            repeatButton.Visible = true;
-            TestName.Text = "Тест окончен!!!";
-            TestName.Font = new Font("Calibri", 26F);
-
-            res = (double)count_of_right_answer / 15 * 100;
-
-            TestOptions.Text = "Количество правильных ответов: " + count_of_right_answer + " / 15 \nПроцент верных ответов: " + Math.Round(res, 0) + "%";
-        }
-
-        //Окрашиваем кнопки в стандартный цвет
-        void SetButtonDefaultColor()
-        {
-            button1.BackColor = default_color;
-            button2.BackColor = default_color;
-            button3.BackColor = default_color;
-            button4.BackColor = default_color;
-        }
-
-        void Error()
-        {
-            string message = "Выберите ответ!!!";
-            string caption = "Ошибка!";
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-            DialogResult result;
-
-            result = MessageBox.Show(message, caption, buttons);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             SetButtonDefaultColor();
@@ -213,8 +159,6 @@ namespace App_for_test_solution2
 
             min = 30;
             sec = 0;
-            TimeMin.Text = "30:";
-            TimeSec.Text = "00";
 
             beginButton.Visible = true;
             TestName.Text = "Тест по инструментальным средствам информационных систем";
@@ -248,12 +192,10 @@ namespace App_for_test_solution2
                 button5.Visible = false;
                 timer1.Enabled = false;
                 Time.Visible = false;
-                TimeMin.Visible = false;
-                TimeSec.Visible = false;
             }
             //Вывод времени в форму
-            TimeMin.Text = Convert.ToString(min) + ":";
-            TimeSec.Text = Convert.ToString(sec);
+            Time.Text ="Время\n" +Convert.ToString(min) + ":"+Convert.ToString(sec);
+
         }
     }
 }

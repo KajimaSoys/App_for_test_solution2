@@ -43,8 +43,6 @@
             this.repeatButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Time = new System.Windows.Forms.Label();
-            this.TimeMin = new System.Windows.Forms.Label();
-            this.TimeSec = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TestName
@@ -136,11 +134,11 @@
             // 
             this.button5.BackColor = System.Drawing.SystemColors.Control;
             this.button5.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Location = new System.Drawing.Point(256, 359);
+            this.button5.Location = new System.Drawing.Point(300, 359);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(289, 59);
+            this.button5.Size = new System.Drawing.Size(197, 59);
             this.button5.TabIndex = 8;
-            this.button5.Text = "button5";
+            this.button5.Text = "Следующий вопрос";
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
@@ -192,47 +190,23 @@
             // Time
             // 
             this.Time.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Time.Location = new System.Drawing.Point(582, 377);
+            this.Time.Location = new System.Drawing.Point(650, 368);
             this.Time.Name = "Time";
-            this.Time.Size = new System.Drawing.Size(66, 22);
+            this.Time.Size = new System.Drawing.Size(119, 41);
             this.Time.TabIndex = 12;
-            this.Time.Text = "Время:";
+            this.Time.Text = "Время\r\n30:00";
             this.Time.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Time.Visible = false;
-            // 
-            // TimeMin
-            // 
-            this.TimeMin.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TimeMin.Location = new System.Drawing.Point(644, 377);
-            this.TimeMin.Name = "TimeMin";
-            this.TimeMin.Size = new System.Drawing.Size(37, 23);
-            this.TimeMin.TabIndex = 13;
-            this.TimeMin.Text = "30:";
-            this.TimeMin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.TimeMin.Visible = false;
-            // 
-            // TimeSec
-            // 
-            this.TimeSec.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TimeSec.Location = new System.Drawing.Point(673, 377);
-            this.TimeSec.Name = "TimeSec";
-            this.TimeSec.Size = new System.Drawing.Size(32, 23);
-            this.TimeSec.TabIndex = 14;
-            this.TimeSec.Text = "00";
-            this.TimeSec.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.TimeSec.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.TimeSec);
             this.Controls.Add(this.Time);
             this.Controls.Add(this.TestName);
             this.Controls.Add(this.repeatButton);
             this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.endButton);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -240,7 +214,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.beginButton);
             this.Controls.Add(this.TestOptions);
-            this.Controls.Add(this.TimeMin);
+            this.Controls.Add(this.endButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -262,8 +236,6 @@
         private System.Windows.Forms.Button repeatButton;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label Time;
-        private System.Windows.Forms.Label TimeMin;
-        private System.Windows.Forms.Label TimeSec;
     }
 }
 

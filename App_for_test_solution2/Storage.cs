@@ -4,6 +4,8 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace App_for_test_solution2
 {
@@ -76,6 +78,59 @@ namespace App_for_test_solution2
             button3.Text = storage[active_question, 3];
             button4.Text = storage[active_question, 4];
             right_answer = Convert.ToInt32(storage[active_question, 5]);
+        }
+
+        //Окрашиваем кнопки в стандартный цвет
+        void SetButtonDefaultColor()
+        {
+            button1.BackColor = default_color;
+            button2.BackColor = default_color;
+            button3.BackColor = default_color;
+            button4.BackColor = default_color;
+        }
+
+        void Error()
+        {
+            string message = "Выберите ответ!!!";
+            string caption = "Ошибка!";
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+
+            result = MessageBox.Show(message, caption, buttons);
+        }
+
+        //Задаем видимость для элементов формы после нажатия кнопки Начать тест
+        void StartTest()
+        {
+            beginButton.Visible = false;
+            TestOptions.Visible = false;
+            TestName.Font = new Font("Calibri", 18F);
+            button5.Text = "Следующий вопрос";
+            button1.Visible = true;
+            button2.Visible = true;
+            button3.Visible = true;
+            button4.Visible = true;
+            button5.Visible = true;
+            timer1.Enabled = true;
+            Time.Visible = true;
+            button5.Location = new Point(305, 359);
+        }
+
+        void EndTest()
+        {
+            button1.Visible = false;
+            button2.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
+            TestOptions.Visible = true;
+            closeButton.Visible = true;
+            repeatButton.Visible = true;
+            TestName.Text = "Тест окончен!!!";
+            TestName.Font = new Font("Calibri", 26F);
+
+            res = (double)count_of_right_answer / 15 * 100;
+
+            TestOptions.Text = "Количество правильных ответов: " + count_of_right_answer + " / 15 \nПроцент верных ответов: " + Math.Round(res, 0) + "%";
         }
     }
 }
