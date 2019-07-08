@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 
@@ -14,26 +8,6 @@ namespace App_for_test_solution2
 {
     partial class Form1 : Form
     {
-        //Строка подключения к MS Access
-        string connectString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=Questions.mdb;";
-
-        //Поле - ссылка на экземпляр класса OleDbConnection для соединения с БД
-        private OleDbConnection myConnection;
-
-        //Библиотека System.Drawing
-        Color default_color;
-        Color active_color;
-
-        int active_question = 0;
-        int active_answer = 0;
-        int right_answer = 0;
-        int count_of_right_answer = 0;
-        double res;
-        //Переменные для подсчета минут и секунд
-        int min = 30;
-        int sec = 0;
-
-
         public Form1()
         {
             InitializeComponent();
@@ -49,21 +23,7 @@ namespace App_for_test_solution2
             active_color = Color.LightBlue;
         }
 
-        private void beginButton_Click(object sender, EventArgs e)
-        {
-            //Метод заполняющий массив вопросами (storage.cs)
-            Array();
-
-            SetButtonDefaultColor();
-
-            //Вызываем данные из массива элементов, которые получили от базы данных (storage.cs)
-            DataRequest();
-
-            active_question++;
-
-            StartTest();
-        }
-
+        //Кнопки выбора правильного ответа
         private void button1_Click(object sender, EventArgs e)
         {
             SetButtonDefaultColor();
@@ -92,7 +52,33 @@ namespace App_for_test_solution2
             active_answer = 4;
         }
 
-        //Кнопка Следующего вопроса
+        //Реализация нажатия кнопки "Запуск теста"
+        private void beginButton_Click(object sender, EventArgs e)
+        {
+            if (qty == 0)
+            {
+                ErrorNonSelectedItem();
+            }
+            else
+            {
+                //Метод заполняющий массив вопросами (storage.cs)
+                Array();
+
+                //Окрашиваем кнопки в стандартный цвет (storage.cs)
+                SetButtonDefaultColor();
+
+                //Вызываем данные из массива элементов, которые получили от базы данных (storage.cs)
+                DataRequest();
+
+                //Счетчик текущего вопроса
+                active_question++;
+
+                //Изменение формы
+                StartTest();
+            }
+        }
+
+        //Реализация нажатия кнопки "Следующий вопрос"
         private void button5_Click(object sender, EventArgs e)
         {
             if (active_answer != 0)
@@ -104,7 +90,7 @@ namespace App_for_test_solution2
                 SetButtonDefaultColor();
                 DataRequest();
 
-                if (active_question < 14)
+                if (active_question < (qty-1))
                 {
                     DataRequest();
                     active_question++;
@@ -120,7 +106,7 @@ namespace App_for_test_solution2
             //Обработка ошибки
             else
             {
-                Error();
+                ErrorNonSelectedAnswer();
             }
         }
 
@@ -134,20 +120,13 @@ namespace App_for_test_solution2
                     count_of_right_answer++;
                 }
                 EndTest();
-                endButton.Visible = false;
             }
             else
             {
-                Error();
+                ErrorNonSelectedAnswer();
             }
         }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //Закрываем соединение с базой данных
-            myConnection.Close();
-        }
-
+        
         //Реализация повторного прохождения теста
         private void repeatButton_Click(object sender, EventArgs e)
         {
@@ -156,46 +135,143 @@ namespace App_for_test_solution2
             active_answer = 0;
             right_answer = 0;
             count_of_right_answer = 0;
+            qty = 0;
 
-            min = 30;
-            sec = 0;
-
-            beginButton.Visible = true;
-            TestName.Text = "Тест по инструментальным средствам информационных систем";
-
-            TestOptions.Text = "15 вопросов; 30 минут";
-            closeButton.Visible = false;
-            repeatButton.Visible = false;
-            TestName.Font = new Font("Calibri", 24F);
+            //Обновляем форму
+            RepeatTest();
         }
 
+        //Закрытие теста при нажатии кнопки "Выход из теста"
         private void closeButton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        //Закрываем соединение с базой данных при закрытии формы
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            myConnection.Close();
+        }
+
         //Реализация таймера
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //Тик равен одной секунде, каждую тик значение секунды уменьшается
+            //Тик равен одной секунде, каждый тик значение секунды уменьшается
             sec--;
             if (sec == -1)
             {
                 min--;
                 sec = 59;
             }
+            if (min == -1)
+            {
+                hour--;
+                min = 59;
+            }
+            
             //Если счетчик дойдет до 0, то откроется форма, что время истекло
-            if (min == 0 && sec == 0)
+            if (hour ==0 && min == 0 && sec == 0)
             {
                 EndTest();
                 TestName.Text = "Время вышло. Тест окончен!!!";
-                button5.Visible = false;
-                timer1.Enabled = false;
-                Time.Visible = false;
             }
-            //Вывод времени в форму
-            Time.Text ="Время\n" +Convert.ToString(min) + ":"+Convert.ToString(sec);
 
+            //Вывод времени в форму
+            if (hour < 1)
+            {
+                if (sec > 9) //12:54
+                    Time.Text = "Оставшееся время\n" + Convert.ToString(min) + ":" + Convert.ToString(sec);
+                else         //12:04
+                    Time.Text = "Оставшееся время\n" + Convert.ToString(min) + ":0" + Convert.ToString(sec);
+                
+            }
+            else
+            {
+                if (min > 9)
+                {
+                    if (sec > 9) //1:12:54
+                        Time.Text = "Оставшееся время\n" + Convert.ToString(hour) + ":" + Convert.ToString(min) + ":" + Convert.ToString(sec);
+                    else         //1:12:04
+                        Time.Text = "Оставшееся время\n" + Convert.ToString(hour) + ":" + Convert.ToString(min) + ":0" + Convert.ToString(sec);
+                }
+                else
+                {
+                    if (sec > 9) //1:02:54
+                        Time.Text = "Оставшееся время\n" + Convert.ToString(hour) + ":0" + Convert.ToString(min) + ":" + Convert.ToString(sec);
+                    else         //1:02:04
+                        Time.Text = "Оставшееся время\n" + Convert.ToString(hour) + ":0" + Convert.ToString(min) + ":0" + Convert.ToString(sec);
+                }
+            }
+        }
+
+        //При входе в элемент выпадающего списка цвет текста в нем становится черным
+        private void comboBox1_Enter(object sender, EventArgs e)
+        {
+            comboBox1.ForeColor = Color.Black;
+        }
+
+        //Обработка события выбранного элемента из выпадающего списка
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            qty = Convert.ToInt32(comboBox1.SelectedItem);
+            hour = 0;
+            min = 0;
+            sec = 0;
+            TestOptions.Visible = true;
+
+            //Изменение времени при соответвующем количестве вопросов
+            switch (Convert.ToInt32(comboBox1.SelectedItem))
+            {
+                case 5:
+                    hour = 0;
+                    min = 10;
+                    break;
+                case 10:
+                    hour = 0;
+                    min = 20;
+                    break;
+                case 15:
+                    hour = 0;
+                    min = 30;
+                    break;
+                case 20:
+                    hour = 0;
+                    min = 40;
+                    break;
+                case 25:
+                    hour = 0;
+                    min = 50;
+                    break;
+                case 30:
+                    hour = 1;
+                    min = 0;
+                    break;
+                case 35:
+                    hour = 1;
+                    min = 10;
+                    break;
+                case 40:
+                    hour = 1;
+                    min = 20;
+                    break;
+                case 45:
+                    hour = 1;
+                    min = 30;
+                    break;
+                case 50:
+                    hour = 1;
+                    min = 40;
+                    break;
+            }
+
+            //Вывод указанных параметров в TestOptions
+            if (hour < 1) //Выбрано 15 вопросов; Время на выполнение: 30 минут
+                TestOptions.Text = "Выбрано " + comboBox1.SelectedItem.ToString() + " вопросов\nВремя на выполнение: "+ min.ToString() + " минут";
+            else          //Выбрано 50 вопросов; Время на выполнение: 1 час 40 минут
+                TestOptions.Text = "Выбрано " + comboBox1.SelectedItem.ToString() + " вопросов\nВремя на выполнение: " + hour.ToString() + " час " + min.ToString() + " минут";
+                          //Выбрано 30 вопросов; Время на выполнение: 1 час
+            if (hour == 1 && min==0)
+                TestOptions.Text = "Выбрано " + comboBox1.SelectedItem.ToString() + " вопросов\nВремя на выполнение: " + hour.ToString() + " час";
         }
     }
 }

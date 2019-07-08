@@ -1,7 +1,6 @@
 C:\Users\Kajima\source\repos\App_for_test_solution2\App_for_test_solution2\bin\Debug\App_for_test_solution2.exe.config
 C:\Users\Kajima\source\repos\App_for_test_solution2\App_for_test_solution2\bin\Debug\App_for_test_solution2.exe
 C:\Users\Kajima\source\repos\App_for_test_solution2\App_for_test_solution2\bin\Debug\App_for_test_solution2.pdb
-C:\Users\Kajima\source\repos\App_for_test_solution2\App_for_test_solution2\obj\Debug\App_for_test_solution2.csprojAssemblyReference.cache
 C:\Users\Kajima\source\repos\App_for_test_solution2\App_for_test_solution2\obj\Debug\App_for_test_solution2.Form1.resources
 C:\Users\Kajima\source\repos\App_for_test_solution2\App_for_test_solution2\obj\Debug\App_for_test_solution2.Properties.Resources.resources
 C:\Users\Kajima\source\repos\App_for_test_solution2\App_for_test_solution2\obj\Debug\App_for_test_solution2.csproj.GenerateResource.cache
